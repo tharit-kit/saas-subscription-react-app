@@ -1,36 +1,34 @@
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { Divider } from "primereact/divider";
+import { Image } from "primereact/image";
  
 export default function HomePage(){
     const headerStarterTier = (
         <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
     );
     const footerStarterTier = (
-        <>
+        <div className="flex justify-center">
             <Button label="Subscribe Now" icon="pi pi-check" />
-            {/* <Button label="Cancel" severity="secondary" icon="pi pi-times" style={{ marginLeft: '0.5em' }} /> */}
-        </>
+        </div>
     );
 
     const headerProTier = (
         <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
     );
     const footerProTier = (
-        <>
+        <div className="flex justify-center">
             <Button label="Subscribe Now" icon="pi pi-check" />
-            {/* <Button label="Cancel" severity="secondary" icon="pi pi-times" style={{ marginLeft: '0.5em' }} /> */}
-        </>
+        </div>
     );
 
     const headerEnterpriseTier = (
         <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
     );
     const footerEnterpriseTier = (
-        <>
+        <div className="flex justify-center">
             <Button label="Subscribe Now" icon="pi pi-check" />
-            {/* <Button label="Cancel" severity="secondary" icon="pi pi-times" style={{ marginLeft: '0.5em' }} /> */}
-        </>
+        </div>
     );
 
     return(
@@ -58,8 +56,9 @@ export default function HomePage(){
                 </Card>
             </div>
             <Divider />
+            <p className="text-5xl">Who use our product</p>
             <div className="flex flex-wrap gap-4 justify-center">
-                <p className="text-5xl">Who use our product</p>
+                <Image src="/assets/images/logos/amazon_"></Image>
             </div>
         </Card>
     );
