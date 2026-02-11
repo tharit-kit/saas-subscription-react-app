@@ -1,7 +1,8 @@
 import { Button } from "primereact/button";
+import { Card } from "primereact/card";
 import { Menubar } from "primereact/menubar";    
 import type { MenuItem } from "primereact/menuitem";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 
 const MENU_ITEMS: MenuItem[] = [
     {
@@ -51,10 +52,16 @@ const MENU_ITEMS: MenuItem[] = [
 ];
 
 function MenuEnd(){
+    const navigate = useNavigate();
+
+    function goToSignUp(){
+        navigate('/registration');
+    }
+
     return (
         <div className="flex align-items-center gap-2">
             <Button label="Sign In" link/>
-            <Button label="Sign Up" outlined/>
+            <Button label="Sign Up" onClick={goToSignUp} outlined/>
         </div>
     );
 }
@@ -63,7 +70,9 @@ export default function HomeLayout() {
     return (
         <div>
             <Menubar model={MENU_ITEMS} end={<MenuEnd />}/>
-            <Outlet />
+            <Card>
+                <Outlet />
+            </Card>
         </div>
     );
 }
