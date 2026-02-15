@@ -2,8 +2,9 @@ import { Button } from 'primereact/button';
 import { Stepper } from 'primereact/stepper';
 import { StepperPanel } from 'primereact/stepperpanel';
 import { useRef } from 'react';
-import RegistrationStepOne from '../components/RegistrationSteps/RegistrationStepOne';
-import RegistrationStepTwo from '../components/RegistrationSteps/RegistrationStepTwo';
+import TenantInformationComponent from '../components/RegistrationSteps/TenantInformationComponent';
+import TenantAddressComponent from '../components/RegistrationSteps/TenantAddressComponent';
+import CreateAdminComponent from '../components/RegistrationSteps/CreateAdminComponent';
 
 export default function RegistrationPage(){
     const stepperRef = useRef<Stepper | null>(null);
@@ -11,25 +12,21 @@ export default function RegistrationPage(){
     return (
         <div className="flex justify-center">
             <Stepper ref={stepperRef} style={{ flexBasis: '50rem' }}>
-                <StepperPanel header="Company Information">
-                    <RegistrationStepOne></RegistrationStepOne>
+                <StepperPanel header="Tenant Information">
+                    <TenantInformationComponent></TenantInformationComponent>
                     <div className="flex pt-4 justify-end">
                         <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current?.nextCallback()} />
                     </div>
                 </StepperPanel>
-                <StepperPanel header="Company Address">
-                    <RegistrationStepTwo></RegistrationStepTwo>
+                <StepperPanel header="Tenant Address">
+                    <TenantAddressComponent></TenantAddressComponent>
                     <div className="flex pt-4 justify-between">
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
                         <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => stepperRef.current?.nextCallback()} />
                     </div>
                 </StepperPanel>
-                <StepperPanel header="Register Admin">
-                    <div className="flex flex-col gap-4 justify-center">
-                        <div>
-                            Content III
-                        </div>
-                    </div>
+                <StepperPanel header="Create Admin">
+                    <CreateAdminComponent></CreateAdminComponent>
                     <div className="flex pt-4 justify-start">
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
                     </div>
