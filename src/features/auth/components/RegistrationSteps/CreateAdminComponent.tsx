@@ -22,13 +22,13 @@ export default function CreateAdminComponent(){
             </small> */}
 
             <label htmlFor="password">Password</label>
-            <Password value={password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} feedback={false} toggleMask />
+            <Password value={password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} feedback={false} toggleMask inputStyle={{ width: '100%' }}/>
             {/* <small id="password-help">
                 Enter your username to reset your password.
             </small> */}
 
             <label htmlFor="confirm-password">Confirm Password</label>
-            <Password value={confirmPassword} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)} feedback={false} toggleMask/>
+            <Password value={confirmPassword} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)} feedback={false} toggleMask inputStyle={{ width: '100%' }}/>
             {/* <small id="company-name-help">
                 Enter your username to reset your password.
             </small> */}

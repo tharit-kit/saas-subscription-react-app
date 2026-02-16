@@ -3,3 +3,11 @@
 @import "primereact/resources/primereact.min.css";
 @import "primereact/resources/themes/lara-light-blue/theme.css";
 @import "primeicons/primeicons.css";
+
+.p-icon-field {
+  width: 100%;
+}
+
+.p-icon-field .p-input-icon {
+    margin-top: -0.75rem;
+}

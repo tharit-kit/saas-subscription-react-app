@@ -27,8 +27,9 @@ export default function RegistrationPage(){
                 </StepperPanel>
                 <StepperPanel header="Create Admin">
                     <CreateAdminComponent></CreateAdminComponent>
-                    <div className="flex pt-4 justify-start">
+                    <div className="flex pt-4 justify-between">
                         <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
+                        <Button type="submit" label="Submit" icon="pi pi-check" />
                     </div>
                 </StepperPanel>
             </Stepper>
