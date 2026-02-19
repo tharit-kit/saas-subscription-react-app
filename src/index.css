@@ -11,3 +11,7 @@
 .p-icon-field .p-input-icon {
     margin-top: -0.75rem;
 }
+
+.error-message{
+  color: red;
+}
