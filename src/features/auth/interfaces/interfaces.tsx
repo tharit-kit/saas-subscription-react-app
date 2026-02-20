@@ -20,3 +20,9 @@ export interface RegisterForm {
     password: string;
     confirmedPassword: string;
 }
+
+export interface PasswordRule {
+    id: string;
+    label: string;
+    test: (password: string) => boolean;
+};

@@ -60,16 +60,9 @@ export default function TenantAddressComponent(){
                 </small>
             )}
             
-            <label htmlFor="address-2">Address 2</label>
+            <label htmlFor="address-2">Address 2 (Optional)</label>
             <InputText id="address-2" 
-            {...register("address2", { required: "Address 2 is required" })} 
-            invalid={!!errors.address2}
-            aria-describedby="address-2-help" />
-            {errors.address2 && (
-                <small id="address-2-help" className="error-message" >
-                    {errors.address2.message}
-                </small>
-            )}
+            {...register("address2")} />
 
             <label htmlFor="country">Country</label>
             <Controller

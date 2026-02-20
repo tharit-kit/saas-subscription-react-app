@@ -1,18 +1,25 @@
 import { InputText } from "primereact/inputtext";
 import { Password } from 'primereact/password';
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { useMemo } from "react";
+import { Controller, useFormContext } from "react-hook-form";
 import type { RegisterForm } from "../../interfaces/interfaces";
+import { allRulesPassed, passwordRules } from "../PasswordChecklist/PasswordRules";
+import { PasswordChecklist } from "../PasswordChecklist/PasswordChecklistComponent";
 
 export default function CreateAdminComponent(){
-    const [password, setPassword] = useState<string>('');
-    const [confirmPassword, setConfirmPassword] = useState<string>('');
-    
+    // const [password, setPassword] = useState<string>('');
+    //const [confirmPassword, setConfirmPassword] = useState<string>('');
+
     const {
         register,
         control,
-        formState: { errors },
+        watch,
+        formState: { errors, dirtyFields },
     } = useFormContext<RegisterForm>();
+
+    const password = watch("password");
+    const passed = useMemo(() => allRulesPassed(password, passwordRules), [password]);
+    const showChecklist = !!dirtyFields.password && !passed;
 
     return (
         <div className="flex flex-col gap-4 w-full">
@@ -38,7 +45,6 @@ export default function CreateAdminComponent(){
 
 
             <label htmlFor="email">Email</label>
-            <InputText id="email" aria-describedby="email-help" />
             <InputText id="email" 
             {...register("email", 
                 { 
@@ -60,21 +66,74 @@ export default function CreateAdminComponent(){
                     Email is invalid
                 </small>
             )}
-            {/* <small id="email-help">
-                Enter your username to reset your password.
-            </small> */}
 
             <label htmlFor="password">Password</label>
-            <Password value={password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} feedback={false} toggleMask inputStyle={{ width: '100%' }}/>
-            {/* <small id="password-help">
-                Enter your username to reset your password.
-            </small> */}
+            <Controller
+                name="password"
+                control={control}
+                rules={{
+                    required: true,
+                    validate: (value) => allRulesPassed(value, passwordRules),
+                }}
+                render={({ field }) => (
+                    <Password
+                        id="password"
+                        value={field.value}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        onBlur={field.onBlur}
+                        inputRef={field.ref}
+                        toggleMask
+                        feedback={false} 
+                        inputStyle={{ width: '100%' }}
+                        invalid={!!errors.password} 
+                    />
+                )}
+            />
+            {errors.password && errors.password.type === "required" && (
+                <small id="password-help" className="error-message" >
+                    Password is required
+                </small>
+            )}
+
+            {showChecklist && 
+                <PasswordChecklist password={password ?? ""} rules={passwordRules} />
+            }
 
             <label htmlFor="confirm-password">Confirm Password</label>
-            <Password value={confirmPassword} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)} feedback={false} toggleMask inputStyle={{ width: '100%' }}/>
-            {/* <small id="company-name-help">
-                Enter your username to reset your password.
-            </small> */}
+            <Controller
+                name="confirmedPassword"
+                control={control}
+                rules={{
+                    required: true,
+                    validate: {
+                        matchPassword: (value) => value === password
+                    }
+                }}
+                render={({ field }) => (
+                    <Password
+                        id="confirm-password"
+                        value={field.value}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        onBlur={field.onBlur}
+                        inputRef={field.ref}
+                        toggleMask
+                        feedback={false} 
+                        inputStyle={{ width: '100%' }}
+                        invalid={!!errors.confirmedPassword} 
+                    />
+                )}
+            />
+            {errors.confirmedPassword && errors.confirmedPassword.type === "required" && (
+                <small id="confirm-password-help" className="error-message" >
+                    Confirm password is required
+                </small>
+            )}
+
+            {errors.confirmedPassword && errors.confirmedPassword.type === "matchPassword" && (
+                <small id="confirm-password-help" className="error-message" >
+                    Password do not match
+                </small>
+            )}
         </div>
     );
 }
