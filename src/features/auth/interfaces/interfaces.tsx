@@ -6,6 +6,7 @@ export interface Country {
 export interface RegisterForm {
     companyName: string;
     businessTypeId: string;
+    subdomain: string;
 
     address1: string;
     address2: string;

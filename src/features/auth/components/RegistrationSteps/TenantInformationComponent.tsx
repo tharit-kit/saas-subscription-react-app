@@ -54,6 +54,17 @@ export default function TenantInformationComponent(){
                     {errors.businessTypeId.message}
                 </small>
             )}
+
+            <label htmlFor="subdomain">Subdomain</label>
+            <InputText id="subdomain" 
+            {...register("subdomain", { required: "Subdomain is required" })} 
+            invalid={!!errors.subdomain} 
+            aria-describedby="subdomain-help" />
+            {errors.subdomain && (
+                <small id="subdomain-help" style={{color:'red'}} >
+                    {errors.subdomain.message}
+                </small>
+            )}
         </div>
     );
 }

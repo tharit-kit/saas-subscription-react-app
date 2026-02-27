@@ -7,9 +7,7 @@ import { allRulesPassed, passwordRules } from "../PasswordChecklist/PasswordRule
 import { PasswordChecklist } from "../PasswordChecklist/PasswordChecklistComponent";
 
 export default function CreateAdminComponent(){
-    // const [password, setPassword] = useState<string>('');
-    //const [confirmPassword, setConfirmPassword] = useState<string>('');
-
+    
     const {
         register,
         control,

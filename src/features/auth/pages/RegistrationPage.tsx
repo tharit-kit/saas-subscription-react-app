@@ -16,6 +16,7 @@ export default function RegistrationPage(){
         defaultValues: {
             companyName: "",
             businessTypeId: "",
+            subdomain: "",
             address1: "",
             address2: "",
             country: "",
@@ -34,7 +35,7 @@ export default function RegistrationPage(){
 
     const stepFields = useMemo(
         () => ({
-            tenantInfo: ["companyName", "businessTypeId"] as const,
+            tenantInfo: ["companyName", "businessTypeId", "subdomain"] as const,
             tenantAddress: ["address1", "address2", "country", "district", "subdistrict", "province", "zipcode"] as const,
             createAdmin: ["displayName", "email", "password", "confirmPassword"] as const,
         }),
