@@ -24,7 +24,7 @@ export default function RegistrationPage(){
             subdistrict: "",
             province: "",
             zipcode: "",
-            displayName: "",
+            fullName: "",
             email: "",
             password: "",
             confirmedPassword: ""
@@ -37,7 +37,7 @@ export default function RegistrationPage(){
         () => ({
             tenantInfo: ["companyName", "businessTypeId", "subdomain"] as const,
             tenantAddress: ["address1", "address2", "country", "district", "subdistrict", "province", "zipcode"] as const,
-            createAdmin: ["displayName", "email", "password", "confirmPassword"] as const,
+            createAdmin: ["fullName", "email", "password", "confirmPassword"] as const,
         }),
         []
     );

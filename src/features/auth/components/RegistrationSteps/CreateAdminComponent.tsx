@@ -21,22 +21,22 @@ export default function CreateAdminComponent(){
 
     return (
         <div className="flex flex-col gap-4 w-full">
-            <label htmlFor="display-name">Display Name</label>
-            <InputText id="display-name" 
-            {...register("displayName", 
+            <label htmlFor="fullname">Full Name</label>
+            <InputText id="fullname" 
+            {...register("fullName", 
                 { 
                     required: true,
                     maxLength: 20
                 })} 
-            invalid={!!errors.displayName} 
-            aria-describedby="display-name-help" />
-            {errors.displayName && errors.displayName.type === "required" && (
-                <small id="display-name-help" className="error-message" >
+            invalid={!!errors.fullName} 
+            aria-describedby="fullname-help" />
+            {errors.fullName && errors.fullName.type === "required" && (
+                <small id="fullname-help" className="error-message" >
                     Display Name is required
                 </small>
             )}
-            {errors.displayName && errors.displayName.type === "maxLength" && (
-                <small id="display-name-help" className="error-message" >
+            {errors.fullName && errors.fullName.type === "maxLength" && (
+                <small id="fullname-help" className="error-message" >
                     Maximum length exceeded
                 </small>
             )}

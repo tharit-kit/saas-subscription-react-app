@@ -16,7 +16,7 @@ export interface RegisterForm {
     province: string;
     zipcode: string;
 
-    displayName: string;
+    fullName: string;
     email: string;
     password: string;
     confirmedPassword: string;
