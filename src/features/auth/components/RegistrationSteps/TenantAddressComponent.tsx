@@ -1,7 +1,8 @@
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
-import type { Country, RegisterForm } from "../../interfaces/interfaces";
+import type { Country } from "../../interfaces/CountryInterface";
 import { Controller, useFormContext } from "react-hook-form";
+import type { RegisterForm } from "../../interfaces/RegisterFormInterface";
 
 export default function TenantAddressComponent(){
     const countries: Country[] = [

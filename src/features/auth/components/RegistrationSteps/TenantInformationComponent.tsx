@@ -1,7 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from 'primereact/dropdown';
 import { Controller, useFormContext } from "react-hook-form";
-import type { RegisterForm } from "../../interfaces/interfaces";
+import type { RegisterForm } from "../../interfaces/RegisterFormInterface";
 
 export default function TenantInformationComponent(){
     const businessTypes = [
@@ -33,7 +33,7 @@ export default function TenantInformationComponent(){
 
             <label htmlFor="business-type">Business Type</label>
             <Controller
-            name="businessTypeId"
+            name="businessType"
             control={control}
             rules={{ required: "Business Type is required" }}
             render={({ field }) => (
@@ -45,13 +45,13 @@ export default function TenantInformationComponent(){
                 placeholder="Select a Business Type"
                 onChange={(e) => field.onChange(e.value)}
                 onBlur={field.onBlur}
-                invalid={!!errors.businessTypeId}
+                invalid={!!errors.businessType}
                 />
             )}
             />
-            {errors.businessTypeId && (
+            {errors.businessType && (
                 <small id="business-type-help" style={{color:'red'}}>
-                    {errors.businessTypeId.message}
+                    {errors.businessType.message}
                 </small>
             )}
 

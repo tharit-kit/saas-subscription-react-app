@@ -1,6 +1,6 @@
 // PasswordChecklist.tsx
 import { useMemo } from "react";
-import type { PasswordRule } from "../../interfaces/interfaces";
+import type { PasswordRule } from "../../interfaces/PasswordRuleInterface";
 import { evaluate } from "./PasswordRules";
 
 export function PasswordChecklist({ password, rules }: { password: string; rules: PasswordRule[] }) {

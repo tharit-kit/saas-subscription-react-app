@@ -2,7 +2,7 @@ import { InputText } from "primereact/inputtext";
 import { Password } from 'primereact/password';
 import { useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import type { RegisterForm } from "../../interfaces/interfaces";
+import type { RegisterForm } from "../../interfaces/RegisterFormInterface";
 import { allRulesPassed, passwordRules } from "../PasswordChecklist/PasswordRules";
 import { PasswordChecklist } from "../PasswordChecklist/PasswordChecklistComponent";
 

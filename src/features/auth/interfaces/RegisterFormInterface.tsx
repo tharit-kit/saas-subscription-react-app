@@ -1,11 +1,6 @@
-export interface Country {
-    name: string;
-    code: string;
-}
-
 export interface RegisterForm {
     companyName: string;
-    businessTypeId: string;
+    businessType: string;
     subdomain: string;
 
     address1: string;
@@ -21,9 +16,3 @@ export interface RegisterForm {
     password: string;
     confirmedPassword: string;
 }
-
-export interface PasswordRule {
-    id: string;
-    label: string;
-    test: (password: string) => boolean;
-};

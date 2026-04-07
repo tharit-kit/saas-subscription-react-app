@@ -1,4 +1,4 @@
-import type { PasswordRule } from "../../interfaces/interfaces";
+import type { PasswordRule } from "../../interfaces/PasswordRuleInterface";
 
 export const passwordRules: PasswordRule[] = [
   { id: "minLength", label: "At least 8 characters", test: (p) => p.length >= 8 },

@@ -1,21 +1,28 @@
 import { Button } from 'primereact/button';
 import { Stepper } from 'primereact/stepper';
 import { StepperPanel } from 'primereact/stepperpanel';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import TenantInformationComponent from '../components/RegistrationSteps/TenantInformationComponent';
 import TenantAddressComponent from '../components/RegistrationSteps/TenantAddressComponent';
 import CreateAdminComponent from '../components/RegistrationSteps/CreateAdminComponent';
 import { FormProvider, useForm } from 'react-hook-form';
-import type { RegisterForm } from '../interfaces/interfaces';
+import type { RegisterForm } from '../interfaces/RegisterFormInterface';
+import type { TenantRegistrationRequest, TenantRegistrationResponse } from '../interfaces/AuthInterface';
+import { registerService } from '../components/services/authService';
+import type { ApiResponse } from '../../../shared/interfaces/ApiResponse';
 
 export default function RegistrationPage(){
+    const [registerResponse, setRegisterResponse] = useState<ApiResponse<TenantRegistrationResponse> | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    
     const stepperRef = useRef<Stepper | null>(null);
 
     const methods = useForm<RegisterForm>({
         mode: "onTouched",
         defaultValues: {
             companyName: "",
-            businessTypeId: "",
+            businessType: "",
             subdomain: "",
             address1: "",
             address2: "",
@@ -35,7 +42,7 @@ export default function RegistrationPage(){
 
     const stepFields = useMemo(
         () => ({
-            tenantInfo: ["companyName", "businessTypeId", "subdomain"] as const,
+            tenantInfo: ["companyName", "businessType", "subdomain"] as const,
             tenantAddress: ["address1", "address2", "country", "district", "subdistrict", "province", "zipcode"] as const,
             createAdmin: ["fullName", "email", "password", "confirmPassword"] as const,
         }),
@@ -48,9 +55,44 @@ export default function RegistrationPage(){
     }
 
     const onSubmit = handleSubmit(async (data) => {
-        // This validates everything by default when submitting
-        console.log("submit", data);
-        // call API here
+        const request: TenantRegistrationRequest = {
+            tenantInfo: {
+                tenantName: data.companyName,
+                businessType: data.businessType,
+                subdomain: data.subdomain
+            },
+            tenantAddress: {
+                address1: data.address1,
+                address2: data.address2,
+                country: data.country,
+                district: data.district,
+                subdistrict: data.subdistrict,
+                province: data.province,
+                zipcode: data.zipcode
+            },
+            newAdmin: {
+                fullName: data.fullName,
+                email: data.email,
+                confirmPassword: data.confirmedPassword
+            }
+        }
+
+        try {
+            setLoading(true);
+            setError(null);
+
+            const response = await registerService(request);
+            setRegisterResponse(response);
+
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("Something went wrong");
+            }
+        } finally {
+            setLoading(false);
+        }
     });
     
     return (
