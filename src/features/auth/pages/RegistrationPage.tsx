@@ -10,11 +10,13 @@ import type { RegisterForm } from '../interfaces/RegisterFormInterface';
 import type { TenantRegistrationRequest, TenantRegistrationResponse } from '../interfaces/AuthInterface';
 import { registerService } from '../components/services/authService';
 import type { ApiResponse } from '../../../shared/interfaces/ApiResponse';
+import { useNavigate } from 'react-router-dom';
 
 export default function RegistrationPage(){
     const [registerResponse, setRegisterResponse] = useState<ApiResponse<TenantRegistrationResponse> | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
     
     const stepperRef = useRef<Stepper | null>(null);
 
@@ -83,7 +85,12 @@ export default function RegistrationPage(){
 
             const response = await registerService(request);
             setRegisterResponse(response);
-
+            
+            if (registerResponse?.ResponseCode == "S01") {
+                navigate("/check-your-email", {replace: true});
+            }
+            console.log(loading);
+            console.log(error);
         } catch (err: unknown) {
             if (err instanceof Error) {
                 setError(err.message);
