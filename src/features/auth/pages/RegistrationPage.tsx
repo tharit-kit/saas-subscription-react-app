@@ -7,17 +7,37 @@ import TenantAddressComponent from '../components/RegistrationSteps/TenantAddres
 import CreateAdminComponent from '../components/RegistrationSteps/CreateAdminComponent';
 import { FormProvider, useForm } from 'react-hook-form';
 import type { RegisterForm } from '../interfaces/RegisterFormInterface';
-import type { TenantRegistrationRequest, TenantRegistrationResponse } from '../interfaces/AuthInterface';
-import { registerService } from '../components/services/authService';
-import type { ApiResponse } from '../../../shared/interfaces/ApiResponse';
-import { useNavigate } from 'react-router-dom';
+import type { TenantRegistrationRequest } from '../interfaces/AuthInterface';
+import { useRegister } from '../hooks/useRegister';
+
+function mapToRequest(data: RegisterForm): TenantRegistrationRequest {
+    return {
+        tenantInfo: {
+            tenantName: data.companyName,
+            businessType: data.businessType,
+            subdomain: data.subdomain
+        },
+        tenantAddress: {
+            address1: data.address1,
+            address2: data.address2,
+            country: data.country,
+            district: data.district,
+            subdistrict: data.subdistrict,
+            province: data.province,
+            zipcode: data.zipcode
+        },
+        newAdmin: {
+            fullName: data.fullName,
+            email: data.email,
+            confirmPassword: data.confirmedPassword
+        }
+    };
+}
 
 export default function RegistrationPage(){
-    const [registerResponse, setRegisterResponse] = useState<ApiResponse<TenantRegistrationResponse> | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
-    
+    const [isRegisterCompleted, setIsRegisterCompleted] = useState(false);
+    const { register } = useRegister();
+
     const stepperRef = useRef<Stepper | null>(null);
 
     const methods = useForm<RegisterForm>({
@@ -57,77 +77,52 @@ export default function RegistrationPage(){
     }
 
     const onSubmit = handleSubmit(async (data) => {
-        const request: TenantRegistrationRequest = {
-            tenantInfo: {
-                tenantName: data.companyName,
-                businessType: data.businessType,
-                subdomain: data.subdomain
-            },
-            tenantAddress: {
-                address1: data.address1,
-                address2: data.address2,
-                country: data.country,
-                district: data.district,
-                subdistrict: data.subdistrict,
-                province: data.province,
-                zipcode: data.zipcode
-            },
-            newAdmin: {
-                fullName: data.fullName,
-                email: data.email,
-                confirmPassword: data.confirmedPassword
-            }
-        }
+        const request = mapToRequest(data);
+        const response = await register(request);
 
-        try {
-            setLoading(true);
-            setError(null);
-
-            const response = await registerService(request);
-            setRegisterResponse(response);
-            
-            if (registerResponse?.ResponseCode == "S01") {
-                navigate("/check-your-email", {replace: true});
-            }
-            console.log(loading);
-            console.log(error);
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                setError(err.message);
-            } else {
-                setError("Something went wrong");
-            }
-        } finally {
-            setLoading(false);
+        if (response?.ResponseCode === "SUCCESS") {
+            setIsRegisterCompleted(true);
         }
     });
     
-    return (
-        <FormProvider {...methods}>
-            <form onSubmit={onSubmit} className="flex justify-center">
-                <Stepper ref={stepperRef} style={{ flexBasis: '50rem' }}>
-                    <StepperPanel header="Tenant Information">
-                        <TenantInformationComponent></TenantInformationComponent>
-                        <div className="flex pt-4 justify-end">
-                            <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => nextStep(stepFields.tenantInfo)} />
-                        </div>
-                    </StepperPanel>
-                    <StepperPanel header="Tenant Address">
-                        <TenantAddressComponent></TenantAddressComponent>
-                        <div className="flex pt-4 justify-between">
-                            <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
-                            <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => nextStep(stepFields.tenantAddress)} />
-                        </div>
-                    </StepperPanel>
-                    <StepperPanel header="Create Admin">
-                        <CreateAdminComponent></CreateAdminComponent>
-                        <div className="flex pt-4 justify-between">
-                            <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
-                            <Button type="submit" label="Submit" icon="pi pi-check" disabled={formState.isSubmitting} />
-                        </div>
-                    </StepperPanel>
-                </Stepper>
-            </form>
-        </FormProvider>
-    );
+    if(!isRegisterCompleted){
+        return (
+            <FormProvider {...methods}>
+                <form onSubmit={onSubmit} className="flex justify-center">
+                    <Stepper ref={stepperRef} style={{ flexBasis: '50rem' }}>
+                        <StepperPanel header="Tenant Information">
+                            <TenantInformationComponent></TenantInformationComponent>
+                            <div className="flex pt-4 justify-end">
+                                <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => nextStep(stepFields.tenantInfo)} />
+                            </div>
+                        </StepperPanel>
+                        <StepperPanel header="Tenant Address">
+                            <TenantAddressComponent></TenantAddressComponent>
+                            <div className="flex pt-4 justify-between">
+                                <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
+                                <Button label="Next" icon="pi pi-arrow-right" iconPos="right" onClick={() => nextStep(stepFields.tenantAddress)} />
+                            </div>
+                        </StepperPanel>
+                        <StepperPanel header="Create Admin">
+                            <CreateAdminComponent></CreateAdminComponent>
+                            <div className="flex pt-4 justify-between">
+                                <Button label="Back" severity="secondary" icon="pi pi-arrow-left" onClick={() => stepperRef.current?.prevCallback()} />
+                                <Button type="submit" label="Submit" icon="pi pi-check" disabled={formState.isSubmitting} />
+                            </div>
+                        </StepperPanel>
+                    </Stepper>
+                </form>
+            </FormProvider>
+        );
+    }else{
+        return(
+            <>
+                <h2>Please check your email to verify your account</h2>
+                <p className="m-0">
+                    We’ve sent you a verification link—just click it to complete the process. If you don’t see the email, be sure to check your spam or junk folder.
+                </p>
+            </>
+        );
+    }
+    
 }
