@@ -4,7 +4,9 @@ import { router } from './routes';
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <div className="min-h-screen flex flex-col">
+        <RouterProvider router={router} />
+    </div>
   );
 }
 

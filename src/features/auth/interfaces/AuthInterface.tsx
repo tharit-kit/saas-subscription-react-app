@@ -9,6 +9,11 @@ export interface TenantRegistrationResponse{
     adminId: string
 }
 
+export interface EmailVerificationResponse{
+    userId: string,
+    tenantId: string
+}
+
 interface TenantInfomation {
     tenantName: string,
     businessType: string,

@@ -68,11 +68,23 @@ function MenuEnd(){
 
 export default function HomeLayout() {
     return (
-        <div>
-            <Menubar model={MENU_ITEMS} end={<MenuEnd />}/>
-            <Card>
-                <Outlet />
-            </Card>
+        <div className="flex flex-col min-h-screen">
+            {/* Navbar */}
+            <Menubar model={MENU_ITEMS} end={<MenuEnd />} />
+
+            {/* Content */}
+            <div className="flex-1 flex">
+                <Card className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                        <Outlet />
+                    </div>
+                </Card>
+            </div>
+
+            {/* Footer */}
+            <footer className="bg-gray-100 border-t px-6 py-4 text-center text-sm text-gray-600">
+                © {new Date().getFullYear()} Your Company. All rights reserved.
+            </footer>
         </div>
     );
 }

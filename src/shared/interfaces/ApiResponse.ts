@@ -1,5 +1,6 @@
 export interface ApiResponse<T>{
-    ResponseCode: string,
-    ResponseDescription: string,
-    Data: T
+    isSuccess: boolean,
+    responseCode: string,
+    responseDescription: string,
+    data: T
 }

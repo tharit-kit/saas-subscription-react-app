@@ -5,11 +5,11 @@ import type { RegisterForm } from "../../interfaces/RegisterFormInterface";
 
 export default function TenantInformationComponent(){
     const businessTypes = [
-        { name: 'New York', code: 'NY' },
-        { name: 'Rome', code: 'RM' },
-        { name: 'London', code: 'LDN' },
-        { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' }
+        'BType1',
+        'BType2',
+        'BType3',
+        'BType4',
+        'BType5'
     ];
 
     const {
@@ -41,7 +41,6 @@ export default function TenantInformationComponent(){
                 id="business-type"
                 value={field.value}
                 options={businessTypes}
-                optionLabel="name"
                 placeholder="Select a Business Type"
                 onChange={(e) => field.onChange(e.value)}
                 onBlur={field.onBlur}

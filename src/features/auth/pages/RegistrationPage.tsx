@@ -7,8 +7,11 @@ import TenantAddressComponent from '../components/RegistrationSteps/TenantAddres
 import CreateAdminComponent from '../components/RegistrationSteps/CreateAdminComponent';
 import { FormProvider, useForm } from 'react-hook-form';
 import type { RegisterForm } from '../interfaces/RegisterFormInterface';
-import type { TenantRegistrationRequest } from '../interfaces/AuthInterface';
+import type { TenantRegistrationRequest, TenantRegistrationResponse } from '../interfaces/AuthInterface';
 import { useRegister } from '../hooks/useRegister';
+import ResendButton from '../../../shared/components/ResendButton';
+import type { ApiResponse } from '../../../shared/interfaces/ApiResponse';
+import { useResendVerificationEmail } from '../hooks/useResendVerificationEmail';
 
 function mapToRequest(data: RegisterForm): TenantRegistrationRequest {
     return {
@@ -37,6 +40,8 @@ function mapToRequest(data: RegisterForm): TenantRegistrationRequest {
 export default function RegistrationPage(){
     const [isRegisterCompleted, setIsRegisterCompleted] = useState(false);
     const { register } = useRegister();
+    const { resendVerificationEmail } = useResendVerificationEmail();
+    const [responseData, setResponseData] = useState<TenantRegistrationResponse>();
 
     const stepperRef = useRef<Stepper | null>(null);
 
@@ -77,10 +82,11 @@ export default function RegistrationPage(){
     }
 
     const onSubmit = handleSubmit(async (data) => {
+        //setIsRegisterCompleted(true);
         const request = mapToRequest(data);
         const response = await register(request);
-
-        if (response?.ResponseCode === "SUCCESS") {
+        if (response?.isSuccess) {
+            setResponseData(response.data);
             setIsRegisterCompleted(true);
         }
     });
@@ -117,10 +123,35 @@ export default function RegistrationPage(){
     }else{
         return(
             <>
-                <h2>Please check your email to verify your account</h2>
-                <p className="m-0">
-                    We’ve sent you a verification link—just click it to complete the process. If you don’t see the email, be sure to check your spam or junk folder.
-                </p>
+                <div className="flex flex-col items-center justify-center h-full text-center px-4">
+            
+                    {/* Icon */}
+                    <div className="text-5xl mb-4">📧</div>
+
+                    {/* Title */}
+                    <h2 className="text-2xl font-semibold mb-2">
+                        Check your email
+                    </h2>
+
+                    {/* Description */}
+                    <p className="text-gray-600 mb-2 max-w-md">
+                        We’ve sent you a verification link—just click it to complete the process.
+                    </p>
+
+                    <p className="text-gray-500 text-sm mb-6 max-w-md">
+                        If you don’t see the email, check your spam or junk folder.
+                    </p>
+
+                    {/* Actions */}
+                    <div className="flex flex-col gap-2 w-full max-w-xs">
+                        <Button 
+                            label="Back to Home" 
+                        />
+
+                        <ResendButton<ApiResponse<null>> onResend={() => resendVerificationEmail(responseData?.adminId || "", responseData?.tenantId || "")} label="Resend Verification Email"></ResendButton>
+                    </div>
+
+                </div>
             </>
         );
     }

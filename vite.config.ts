@@ -4,7 +4,17 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(),
+  plugins: [
+    react(),
     tailwindcss()
   ],
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5292", // your backend
+        changeOrigin: true,
+        secure: false, // needed for self-signed HTTPS (ASP.NET)
+      },
+    },
+  },
 })

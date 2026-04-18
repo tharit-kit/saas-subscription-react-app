@@ -76,6 +76,8 @@ export default function TenantAddressComponent(){
                 value={field.value}
                 options={countries}
                 optionLabel="name"
+                optionValue="code"
+                dataKey="code"
                 placeholder="Select a Country"
                 valueTemplate={selectedCountryTemplate} 
                 itemTemplate={countryOptionTemplate}
