@@ -15,12 +15,14 @@ export default function EmailVerificationPage(){
     const { resendVerificationEmail } = useResendVerificationEmail();
 
     useEffect(() => {
+        if (!token) return;
         async function verify(id: string) {
             const response = await verifyEmail(id);
             setResponse(response);
+            console.log(response.responseCode);
         }
         verify(token || "");
-    });
+    }, [token]);
 
     if(response?.responseCode == "SUCCESS"){
         return (
@@ -37,8 +39,6 @@ export default function EmailVerificationPage(){
                     <Button 
                         label="Go to Signin" 
                     />
-
-                    <ResendButton<ApiResponse<null>> onResend={() => resendVerificationEmail(response.data.userId, response.data.tenantId)} label="Resend Verification Email"></ResendButton>
                 </div>
             </div>
         );
@@ -70,6 +70,22 @@ export default function EmailVerificationPage(){
                 <p className="text-gray-600 mb-2 max-w-md">
                     You can no longer use this email.
                 </p>
+            </div>
+        );
+    }else{
+        return (
+            <div className="flex flex-col items-center justify-center h-full text-center px-4">
+                <h2 className="text-2xl font-semibold mb-2">
+                    Something went wrong.
+                </h2>
+
+                <p className="text-gray-600 mb-2 max-w-md">
+                    Please request a new verification email.
+                </p>
+
+                <div className="flex flex-col gap-2 w-full max-w-xs">
+                    <ResendButton<ApiResponse<null>> onResend={() => resendVerificationEmail(response!.data.userId, response!.data.tenantId)} label="Resend Verification Email"></ResendButton>
+                </div>
             </div>
         );
     }
