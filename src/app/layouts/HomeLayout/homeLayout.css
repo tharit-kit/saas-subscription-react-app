@@ -11,11 +11,21 @@
   min-height: 0; /* important for flex children */
 }
 
-/* Card layout override */
+/* make the layout card full width */
 .home-card {
   display: flex;
   flex: 1;
   flex-direction: column;
+  width: 100%;
+}
+
+/* 🔥 ONLY remove padding for THIS card (not nested ones) */
+.home-card > .p-card-body {
+  padding: 0;
+}
+
+.home-card > .p-card-body > .p-card-content {
+  padding: 0;
 }
 
 /* Outlet container */
