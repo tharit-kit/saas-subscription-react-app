@@ -82,7 +82,6 @@ export default function RegistrationPage(){
     }
 
     const onSubmit = handleSubmit(async (data) => {
-        //setIsRegisterCompleted(true);
         const request = mapToRequest(data);
         const response = await register(request);
         if (response?.isSuccess) {

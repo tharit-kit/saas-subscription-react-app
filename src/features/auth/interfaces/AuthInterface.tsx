@@ -14,6 +14,16 @@ export interface EmailVerificationResponse{
     tenantId: string
 }
 
+export interface LoginRequest{
+    email: string,
+    password: string
+}
+
+export interface LoginResponse{
+    accessToken: string,
+    memberships: MembershipInfo[]
+}
+
 interface TenantInfomation {
     tenantName: string,
     businessType: string,
@@ -34,4 +44,10 @@ interface NewAdmin {
     fullName: string,
     email: string,
     confirmPassword: string
+}
+
+export interface MembershipInfo{
+    tenantName: string,
+    slug: string,
+    role: string
 }

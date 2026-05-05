@@ -1,0 +1,24 @@
+.home-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Content wrapper */
+.home-content {
+  display: flex;
+  flex: 1;
+  min-height: 0; /* important for flex children */
+}
+
+/* Card layout override */
+.home-card {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* Outlet container */
+.home-outlet {
+  flex: 1;
+}

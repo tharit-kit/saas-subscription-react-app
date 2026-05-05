@@ -1,0 +1,29 @@
+.email-verification-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: 0 1rem; /* px-4 */
+}
+
+.email-verification-title {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.email-verification-description {
+  color: #4b5563; /* text-gray-600 */
+  margin-bottom: 0.5rem;
+  max-width: 28rem; /* max-w-md */
+}
+
+.email-verification-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 20rem; /* max-w-xs */
+}

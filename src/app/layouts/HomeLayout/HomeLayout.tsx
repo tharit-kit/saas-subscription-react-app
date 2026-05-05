@@ -1,8 +1,10 @@
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
-import { Menubar } from "primereact/menubar";    
 import type { MenuItem } from "primereact/menuitem";
 import { Outlet, useNavigate } from "react-router";
+import './homeLayout.css'
+import Footer from "../Shared/Footer/Footer";
+import Topbar from "../Shared/Topbar/Topbar";
 
 const MENU_ITEMS: MenuItem[] = [
     {
@@ -54,13 +56,17 @@ const MENU_ITEMS: MenuItem[] = [
 function MenuEnd(){
     const navigate = useNavigate();
 
+    function goToSignIn(){
+        navigate('/login');
+    }
+
     function goToSignUp(){
         navigate('/registration');
     }
 
     return (
         <div className="flex align-items-center gap-2">
-            <Button label="Sign In" link/>
+            <Button label="Sign In" onClick={goToSignIn} link/>
             <Button label="Sign Up" onClick={goToSignUp} outlined/>
         </div>
     );
@@ -68,23 +74,21 @@ function MenuEnd(){
 
 export default function HomeLayout() {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="home-layout">
             {/* Navbar */}
-            <Menubar model={MENU_ITEMS} end={<MenuEnd />} />
+            <Topbar items={MENU_ITEMS} end={<MenuEnd />}></Topbar>
 
             {/* Content */}
-            <div className="flex-1 flex">
-                <Card className="flex-1 flex flex-col">
-                    <div className="flex-1">
+            <div className="home-content">
+                <Card className="home-card">
+                    <div className="home-outlet">
                         <Outlet />
                     </div>
                 </Card>
             </div>
 
             {/* Footer */}
-            <footer className="bg-gray-100 border-t px-6 py-4 text-center text-sm text-gray-600">
-                © {new Date().getFullYear()} Your Company. All rights reserved.
-            </footer>
+            <Footer></Footer>
         </div>
     );
 }

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useVerifyEmail } from "../hooks/useVerifyEmail";
+import { useVerifyEmail } from "../../hooks/useVerifyEmail";
 import { Button } from "primereact/button";
-import ResendButton from "../../../shared/components/ResendButton";
-import { useResendVerificationEmail } from "../hooks/useResendVerificationEmail";
-import type { ApiResponse } from "../../../shared/interfaces/ApiResponse";
-import type { EmailVerificationResponse } from "../interfaces/AuthInterface";
+import ResendButton from "../../../../shared/components/ResendButton";
+import { useResendVerificationEmail } from "../../hooks/useResendVerificationEmail";
+import type { ApiResponse } from "../../../../shared/interfaces/ApiResponse";
+import type { EmailVerificationResponse } from "../../interfaces/AuthInterface";
+import './EmailVerificationPage.css';
 
 export default function EmailVerificationPage(){
     const [searchParams] = useSearchParams();
@@ -26,16 +27,16 @@ export default function EmailVerificationPage(){
 
     if(response?.responseCode == "SUCCESS"){
         return (
-            <div className="flex flex-col items-center justify-center h-full text-center px-4">
-                <h2 className="text-2xl font-semibold mb-2">
+            <div className="email-verification-container">
+                <h2 className="email-title">
                     Your email has been successfully verified.
                 </h2>
 
-                <p className="text-gray-600 mb-2 max-w-md">
+                <p className="email-description">
                     You can now sign in to your account.
                 </p>
 
-                <div className="flex flex-col gap-2 w-full max-w-xs">
+                <div className="email-actions">
                     <Button 
                         label="Go to Signin" 
                     />
@@ -44,16 +45,16 @@ export default function EmailVerificationPage(){
         );
     }else if(response?.responseCode == "EMAIL_ALREADY_VERIFIED"){
         return (
-            <div className="flex flex-col items-center justify-center h-full text-center px-4">
-                <h2 className="text-2xl font-semibold mb-2">
+            <div className="email-verification-container">
+                <h2 className="email-verification-title">
                     This email is already verified.
                 </h2>
 
-                <p className="text-gray-600 mb-2 max-w-md">
+                <p className="email-verification-description">
                     Please sign in to continue.
                 </p>
 
-                <div className="flex flex-col gap-2 w-full max-w-xs">
+                <div className="email-verification-actions">
                     <Button 
                         label="Go to Signin" 
                     />
@@ -62,28 +63,28 @@ export default function EmailVerificationPage(){
         );
     }else if(response?.responseCode == "USER_REJECTED"){
         return (
-            <div className="flex flex-col items-center justify-center h-full text-center px-4">
-                <h2 className="text-2xl font-semibold mb-2">
+            <div className="email-verification-container">
+                <h2 className="email-verification-title">
                     Your email has been rejected.
                 </h2>
 
-                <p className="text-gray-600 mb-2 max-w-md">
+                <p className="email-verification-description">
                     You can no longer use this email.
                 </p>
             </div>
         );
     }else{
         return (
-            <div className="flex flex-col items-center justify-center h-full text-center px-4">
-                <h2 className="text-2xl font-semibold mb-2">
+            <div className="email-verification-container">
+                <h2 className="email-verification-title">
                     Something went wrong.
                 </h2>
 
-                <p className="text-gray-600 mb-2 max-w-md">
+                <p className="email-verification-description">
                     Please request a new verification email.
                 </p>
 
-                <div className="flex flex-col gap-2 w-full max-w-xs">
+                <div className="email-verification-actions">
                     <ResendButton<ApiResponse<null>> onResend={() => resendVerificationEmail(response!.data.userId, response!.data.tenantId)} label="Resend Verification Email"></ResendButton>
                 </div>
             </div>
