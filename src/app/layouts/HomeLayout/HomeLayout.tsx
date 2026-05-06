@@ -3,8 +3,8 @@ import { Card } from "primereact/card";
 import type { MenuItem } from "primereact/menuitem";
 import { Outlet, useNavigate } from "react-router";
 import './homeLayout.css'
-import Footer from "../Shared/Footer";
-import Topbar from "../Shared/Topbar";
+import Footer from "../Shared/components/Footer";
+import Topbar from "../Shared/components/Topbar";
 
 const MENU_ITEMS: MenuItem[] = [
     {

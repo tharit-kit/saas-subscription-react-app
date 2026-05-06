@@ -1,0 +1,46 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem; /* space-y-12 */
+  width: 100%;
+}
+
+/* Tier cards section */
+.tier-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; /* gap-4 */
+  justify-content: center;
+  width: 100%;
+}
+
+/* Logos section */
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem; /* space-y-12 */
+  width: 100%;
+}
+
+/* Title */
+.logo-title {
+  font-size: 3rem; /* text-5xl */
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Logos container */
+.logo-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem; /* gap-6 */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Optional: normalize logo images */
+.logo-list img {
+  object-fit: contain;
+}

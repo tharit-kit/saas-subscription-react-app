@@ -4,6 +4,7 @@ import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import { Button } from "primereact/button";
+import './login-page.css';
 
 export default function LoginPage(){
     const { login } = useLogin();
@@ -28,48 +29,54 @@ export default function LoginPage(){
     return (
         <div className="login-page">
             <div className="login-container">
-                <h2 className="login-title">Sign in</h2>
+                <h1 className="login-title">Sign in</h1>
 
                 <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
                 
-                <div>
+                {/* Email */}
+                <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <InputText
-                    id="email"
-                    {...register("email", {
-                        required: true,
-                        pattern: {
-                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                        message: "Email is invalid",
-                        },
-                    })}
-                    invalid={!!errors.email}
+                        id="email"
+                        {...register("email", {
+                            required: "Email is required",
+                            pattern: {
+                            value:
+                                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                            message: "Email is invalid",
+                            },
+                        })}
+                        className={errors.email ? "p-invalid" : ""}
                     />
-                    {errors.email?.type === "required" && (
-                    <small className="error-message">Email is required</small>
-                    )}
-                    {errors.email?.type === "pattern" && (
-                    <small className="error-message">Email is invalid</small>
+                    {errors.email && (
+                    <small className="error-message">
+                        {errors.email.message}
+                    </small>
                     )}
                 </div>
 
-                <div>
+                {/* Password */}
+                <div className="form-group">
                     <label htmlFor="password">Password</label>
                     <InputText
-                    id="password"
-                    type="password"
-                    {...register("password", { required: true })}
-                    invalid={!!errors.password}
+                        id="password"
+                        type="password"
+                        {...register("password", {
+                            required: "Password is required",
+                        })}
+                        className={errors.password ? "p-invalid" : ""}
                     />
-                    {errors.password?.type === "required" && (
-                    <small className="error-message">Password is required</small>
+                    {errors.password && (
+                    <small className="error-message">
+                        {errors.password.message}
+                    </small>
                     )}
                 </div>
 
+                {/* Button */}
                 <div className="login-actions">
-                    <Button label="Sign in" type="submit" className="w-full" />
+                    <Button label="Sign in" type="submit" />
                 </div>
-
                 </form>
             </div>
         </div>

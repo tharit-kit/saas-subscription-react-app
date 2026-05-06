@@ -94,7 +94,7 @@ export default function RegistrationPage(){
         return (
             <FormProvider {...methods}>
                 <form onSubmit={onSubmit} className="flex justify-center">
-                    <Stepper ref={stepperRef} style={{ flexBasis: '50rem' }}>
+                    <Stepper ref={stepperRef} style={{ flexBasis: '75rem' }}>
                         <StepperPanel header="Tenant Information">
                             <TenantInformationComponent></TenantInformationComponent>
                             <div className="flex pt-4 justify-end">

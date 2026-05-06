@@ -1,38 +1,44 @@
+/* Full area inside HomeLayout */
 .login-page {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background-color: #f9fafb;
 }
 
-/* Card container */
+/* Card */
 .login-container {
   width: 100%;
   max-width: 420px;
   background: #ffffff;
-  padding: 2rem;
+  padding: 2.5rem;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 /* Title */
 .login-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  margin-bottom: 2rem;
 }
 
-/* Form layout */
+/* Form */
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+}
+
+/* Each field */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
 /* Labels */
-.login-form label {
+.form-group label {
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -42,13 +48,13 @@
   width: 100%;
 }
 
-/* Error message */
+/* Errors */
 .error-message {
   color: #dc2626;
   font-size: 0.8rem;
 }
 
-/* Button spacing */
-.login-actions {
-  margin-top: 1rem;
+/* Button */
+.login-actions .p-button {
+  width: 100%;
 }
