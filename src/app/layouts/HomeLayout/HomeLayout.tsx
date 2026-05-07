@@ -2,7 +2,7 @@ import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import type { MenuItem } from "primereact/menuitem";
 import { Outlet, useNavigate } from "react-router";
-import './homeLayout.css'
+import './home-layout.css'
 import Footer from "../Shared/components/Footer";
 import Topbar from "../Shared/components/Topbar";
 
