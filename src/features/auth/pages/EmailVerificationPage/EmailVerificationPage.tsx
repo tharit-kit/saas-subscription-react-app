@@ -12,20 +12,20 @@ export default function EmailVerificationPage(){
     const [searchParams] = useSearchParams();
     const token = searchParams.get("token");
     const { verifyEmail } = useVerifyEmail();
-    const [response, setResponse] = useState<ApiResponse<EmailVerificationResponse>>();
+    const [responseData, setResponseData] = useState<ApiResponse<EmailVerificationResponse>>();
     const { resendVerificationEmail } = useResendVerificationEmail();
 
     useEffect(() => {
         if (!token) return;
         async function verify(id: string) {
             const response = await verifyEmail(id);
-            setResponse(response);
+            setResponseData(response);
             console.log(response.responseCode);
         }
         verify(token || "");
     }, [token]);
 
-    if(response?.responseCode == "SUCCESS"){
+    if(responseData?.responseCode == "SUCCESS"){
         return (
             <div className="email-verification-container">
                 <h2 className="email-title">
@@ -43,7 +43,23 @@ export default function EmailVerificationPage(){
                 </div>
             </div>
         );
-    }else if(response?.responseCode == "EMAIL_ALREADY_VERIFIED"){
+    }else if(responseData?.responseCode == "VERIFICATION_TOKEN_EXPIRED"){
+        return (
+            <div className="email-verification-container">
+                <h2 className="email-verification-title">
+                    Your verication link has been expired.
+                </h2>
+
+                <p className="email-verification-description">
+                    Please request a new verification link.
+                </p>
+
+                <div className="email-verification-actions">
+                    <ResendButton<ApiResponse<null>> onResend={() => resendVerificationEmail(responseData.data.userId, responseData.data.tenantId)} label="Resend Verification Email"></ResendButton>
+                </div>
+            </div>
+        );
+    }else if(responseData?.responseCode == "EMAIL_ALREADY_VERIFIED"){
         return (
             <div className="email-verification-container">
                 <h2 className="email-verification-title">
@@ -61,7 +77,7 @@ export default function EmailVerificationPage(){
                 </div>
             </div>
         );
-    }else if(response?.responseCode == "USER_REJECTED"){
+    }else if(responseData?.responseCode == "USER_REJECTED"){
         return (
             <div className="email-verification-container">
                 <h2 className="email-verification-title">
@@ -81,12 +97,8 @@ export default function EmailVerificationPage(){
                 </h2>
 
                 <p className="email-verification-description">
-                    Please request a new verification email.
+                    We can't verify your email.
                 </p>
-
-                <div className="email-verification-actions">
-                    <ResendButton<ApiResponse<null>> onResend={() => resendVerificationEmail(response!.data.userId, response!.data.tenantId)} label="Resend Verification Email"></ResendButton>
-                </div>
             </div>
         );
     }

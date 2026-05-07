@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCurrentTenantSlug } from '../helpers/tenant';
 
 // Create an instance of axios with some default configuration
 const apiClient = axios.create({
@@ -7,10 +8,7 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem("accessToken");
-
-  // Extract tenant from URL: /t/acme/...
-  const pathParts = window.location.pathname.split("/");
-  const tenantSlug = pathParts[1] === "t" ? pathParts[2] : null;
+  const tenantSlug = getCurrentTenantSlug();
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;

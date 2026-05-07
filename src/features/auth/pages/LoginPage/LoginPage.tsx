@@ -1,14 +1,14 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
-import type { LoginRequest, LoginResponse } from "../../interfaces/AuthInterface";
+import type { LoginRequest } from "../../interfaces/AuthInterface";
 import { InputText } from "primereact/inputtext";
-import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import { Button } from "primereact/button";
 import './login-page.css';
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage(){
+    const navigate = useNavigate();
     const { login } = useLogin();
-    const [responseData, setResponseData] = useState<LoginResponse>();
 
     const {
         register,
@@ -17,12 +17,11 @@ export default function LoginPage(){
     } = useForm<LoginRequest>();
 
     const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
-        console.log(data);
         const response = await login(data);
         if (response?.isSuccess) {
-            setResponseData(response.data);
-            localStorage.setItem("accessToken", responseData?.accessToken || "");
-            localStorage.setItem("tenants", JSON.stringify(responseData?.memberships));
+            localStorage.setItem("accessToken", response.data.accessToken || "");
+            localStorage.setItem("memberships", JSON.stringify(response.data.memberships));
+            navigate(`/t/${response.data.memberships[0].slug}/dashboard`);
         }
     }
 

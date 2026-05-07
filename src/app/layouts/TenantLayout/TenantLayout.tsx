@@ -6,11 +6,12 @@ import { Dropdown, type DropdownChangeEvent } from 'primereact/dropdown';
 import { Menu } from 'primereact/menu';
 import type { MembershipInfo } from '../../../features/auth/interfaces/AuthInterface';
 import { useState } from 'react';
+import { getCurrentTenantSlug } from '../../../shared/helpers/tenant';
 
 function MenuEnd(){
     const navigate = useNavigate();
-    const tenants: MembershipInfo[] = JSON.parse(localStorage.getItem("tenants") || "[]");
-    const [selectedTenant, setSelectedTenant] = useState(tenants[0]);
+    const memberships: MembershipInfo[] = JSON.parse(localStorage.getItem("memberships") || "[]");
+    const [selectedTenant, setSelectedTenant] = useState(memberships[0]);
 
     function onSelectTenant(e: DropdownChangeEvent){
         console.log(e.value);
@@ -20,7 +21,7 @@ function MenuEnd(){
 
     return (
         <div>
-            <Dropdown value={selectedTenant} onChange={onSelectTenant} options={tenants} optionLabel="tenantName" 
+            <Dropdown value={selectedTenant} onChange={onSelectTenant} options={memberships} optionLabel="tenantName" 
                 placeholder="Select a Tenant" checkmark={true} highlightOnSelect={false} />
         </div>
     );
@@ -34,16 +35,21 @@ export default function TenantLayout(){
         navigate("/login");
     }
 
+    const tenantSlug = getCurrentTenantSlug();
+    if (!tenantSlug){
+        navigate("/login");
+    }
+
     const SIDE_MENU_ITEMS = [
         {
             label: "Dashboard",
             icon: "pi pi-home",
-            command: () => navigate("/dashboard"),
+            command: () => navigate(`t/${tenantSlug}/dashboard`),
         },
         {
             label: "User Management",
             icon: "pi pi-users",
-            command: () => navigate("/users"),
+            command: () => navigate(`t/${tenantSlug}/members`),
         },
         {
             label: "Settings",
@@ -69,7 +75,7 @@ export default function TenantLayout(){
                 <div className="tenant-layout-content">
                     <Card style={{ flex: 1, display: "flex", flexDirection: "column" }}>
                         <div className="tenant-layout-outlet">
-                        <Outlet />
+                            <Outlet />
                         </div>
                     </Card>
                 </div>

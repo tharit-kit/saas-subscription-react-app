@@ -5,6 +5,7 @@ import RegistrationPage from "../features/auth/pages/RegistrationPage";
 import EmailVerificationPage from "../features/auth/pages/EmailVerificationPage/EmailVerificationPage";
 import LoginPage from "../features/auth/pages/LoginPage/LoginPage";
 import TenantLayout from "./layouts/TenantLayout/TenantLayout";
+import Dashboard from "../features/tenant/pages/dashboard/Dashboard";
 
 export const router = createBrowserRouter([
     {
@@ -19,6 +20,9 @@ export const router = createBrowserRouter([
     },
     {
         element: <TenantLayout></TenantLayout>,
+        children: [
+            {path: "/t/:tenant/dashboard", element: <Dashboard/>}
+        ]
         
     },
     {path: "*", element: <Navigate to="/home" replace />}
