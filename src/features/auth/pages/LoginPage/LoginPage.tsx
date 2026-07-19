@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function LoginPage(){
     const navigate = useNavigate();
-    const { login } = useLogin();
+    const { login, loading, error: loginError } = useLogin();
 
     const {
         register,
@@ -31,6 +31,15 @@ export default function LoginPage(){
                 <h1 className="login-title">Sign in</h1>
 
                 <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+                {loginError && (
+                    <div className="login-error" role="alert" aria-live="assertive">
+                        <i className="pi pi-exclamation-circle" aria-hidden="true" />
+                        <div>
+                            <strong>Sign-in unsuccessful</strong>
+                            <span>{loginError}</span>
+                        </div>
+                    </div>
+                )}
                 
                 {/* Email */}
                 <div className="form-group">
@@ -74,7 +83,7 @@ export default function LoginPage(){
 
                 {/* Button */}
                 <div className="login-actions">
-                    <Button label="Sign in" type="submit" />
+                    <Button label={loading ? "Signing in" : "Sign in"} type="submit" loading={loading} disabled={loading} />
                 </div>
                 </form>
             </div>

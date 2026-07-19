@@ -1,8 +1,198 @@
 .app-footer {
-  background: #f3f4f6;
-  border-top: 1px solid #e5e7eb;
-  padding: 1rem;
-  text-align: center;
-  font-size: 0.875rem;
-  color: #4b5563;
+  --footer-primary: var(--primary-color, #3b82f6);
+  --footer-primary-dark: #2563eb;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: 0;
+  background:
+    linear-gradient(180deg, rgba(239, 246, 255, 0.82) 0%, rgba(248, 250, 252, 0.98) 42%, #ffffff 100%);
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  color: var(--text-color, #334155);
+}
+
+.app-footer-container {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 0 0 1.5rem;
+}
+
+.app-footer-glow {
+  position: absolute;
+  z-index: -1;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.app-footer-glow-left {
+  top: -12rem;
+  left: -10rem;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.16), transparent 68%);
+}
+
+.app-footer-glow-right {
+  right: -8rem;
+  bottom: -14rem;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12), transparent 68%);
+}
+
+.app-footer a:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--footer-primary) 30%, transparent);
+  outline-offset: 3px;
+}
+
+.app-footer-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(20rem, 0.7fr);
+  gap: clamp(3rem, 8vw, 8rem);
+  padding: 3rem 0 2.75rem;
+}
+
+.app-footer-brand {
+  max-width: 31rem;
+}
+
+.app-footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-color, #1e293b);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.app-footer-logo-mark {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  background: linear-gradient(135deg, var(--footer-primary), #8b5cf6);
+  border-radius: 0.8rem;
+  box-shadow: 0 0.5rem 1rem rgba(59, 130, 246, 0.2);
+  color: #ffffff;
+}
+
+.app-footer-brand > p {
+  margin: 1rem 0 1.25rem;
+  color: var(--text-color-secondary, #64748b);
+  line-height: 1.75;
+}
+
+.app-footer-promise {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.app-footer-promise .pi-shield {
+  color: var(--footer-primary);
+}
+
+.app-footer-dot {
+  width: 0.25rem;
+  height: 0.25rem;
+  margin: 0 0.1rem;
+  background: #cbd5e1;
+  border-radius: 50%;
+}
+
+.app-footer-navigation {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.app-footer-link-group h3 {
+  margin: 0 0 1.1rem;
+  color: var(--text-color, #334155);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.app-footer-link-group ul {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-footer-link-group a {
+  color: var(--text-color-secondary, #64748b);
+  font-size: 0.92rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.app-footer-link-group a:hover {
+  color: var(--footer-primary-dark);
+}
+
+.app-footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.24);
+  color: var(--text-color-secondary, #64748b);
+  font-size: 0.8rem;
+}
+
+.app-footer-bottom p {
+  margin: 0;
+}
+
+.app-footer-made-with {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.app-footer-made-with span {
+  color: var(--footer-primary);
+}
+
+@media (max-width: 860px) {
+  .app-footer-main {
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+  }
+
+  .app-footer-brand {
+    max-width: 38rem;
+  }
+
+  .app-footer-navigation {
+    max-width: 28rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .app-footer-container {
+    width: min(100% - 2rem, 1180px);
+  }
+
+  .app-footer-main {
+    padding: 2.75rem 0 2.25rem;
+  }
+
+  .app-footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

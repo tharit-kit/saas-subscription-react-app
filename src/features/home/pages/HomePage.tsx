@@ -8,7 +8,7 @@ export default function HomePage(){
         <div className="home-page">
   
             {/* Tier Cards */}
-            <div className="tier-section">
+            <div className="tier-section" id="plans">
                 <TierCard
                 title="Starter"
                 subTitle="Benefits:"
@@ -29,7 +29,7 @@ export default function HomePage(){
             <Divider />
 
             {/* Logos */}
-            <div className="logo-section">
+            <div className="logo-section" id="customers">
                 <p className="logo-title">Who use our product</p>
 
                 <div className="logo-list">
