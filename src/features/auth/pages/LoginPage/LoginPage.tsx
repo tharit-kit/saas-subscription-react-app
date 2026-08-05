@@ -3,7 +3,7 @@ import type { LoginRequest } from "../../interfaces/AuthInterface";
 import { InputText } from "primereact/inputtext";
 import { useLogin } from "../../hooks/useLogin";
 import { Button } from "primereact/button";
-import './login-page.css';
+import './LoginPage.css';
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage(){

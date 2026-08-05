@@ -1,7 +1,7 @@
 import { Divider } from "primereact/divider";
 import { Image } from "primereact/image";
 import { TierCard } from "../components/TierCard";
-import './home-page.css';
+import './HomePage.css';
 
 export default function HomePage(){
     return(

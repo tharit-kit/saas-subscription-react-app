@@ -6,7 +6,7 @@ import ResendButton from "../../../../shared/components/ResendButton";
 import { useResendVerificationEmail } from "../../hooks/useResendVerificationEmail";
 import type { ApiResponse } from "../../../../shared/interfaces/ApiResponse";
 import type { EmailVerificationResponse } from "../../interfaces/AuthInterface";
-import './email-verification-page.css';
+import './EmailVerificationPage.css';
 
 export default function EmailVerificationPage(){
     const [searchParams] = useSearchParams();

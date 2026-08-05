@@ -1,5 +1,5 @@
 import { Menubar } from 'primereact/menubar';
-import './tenant-layout.css';
+import './TenantLayout.css';
 import { Card } from 'primereact/card';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Dropdown, type DropdownChangeEvent } from 'primereact/dropdown';
