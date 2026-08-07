@@ -7,18 +7,16 @@ type TierCardProps = {
   body: string;
 };
 
-function TierCardHeader(){
-    return (
-        <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
-    );
+function TierCardHeader() {
+  return <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />;
 }
 
-function TierCardFooter(){
-    return (
-        <div className="flex justify-center">
-            <Button label="Subscribe Now" icon="pi pi-check" />
-        </div>
-    );
+function TierCardFooter() {
+  return (
+    <div className="flex justify-center">
+      <Button label="Subscribe Now" icon="pi pi-check" />
+    </div>
+  );
 }
 
 export function TierCard({ title, subTitle, body }: TierCardProps) {

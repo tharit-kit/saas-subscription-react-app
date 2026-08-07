@@ -1,69 +1,67 @@
 import { InputText } from "primereact/inputtext";
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from "primereact/dropdown";
 import { Controller, useFormContext } from "react-hook-form";
 import type { RegisterForm } from "../../interfaces/RegisterFormInterface";
 
-export default function TenantInformationComponent(){
-    const businessTypes = [
-        'BType1',
-        'BType2',
-        'BType3',
-        'BType4',
-        'BType5'
-    ];
+export default function TenantInformationComponent() {
+  const businessTypes = ["BType1", "BType2", "BType3", "BType4", "BType5"];
 
-    const {
-        register,
-        control,
-        formState: { errors },
-    } = useFormContext<RegisterForm>();
-    
-    return(
-        <div className="flex flex-col gap-4 justify-center">
-            <label htmlFor="company-name">Company Name</label>
-            <InputText id="company-name" 
-            {...register("companyName", { required: "Company Name is required" })} 
-            invalid={!!errors.companyName} 
-            aria-describedby="company-name-help" />
-            {errors.companyName && (
-                <small id="company-name-help" style={{color:'red'}} >
-                    {errors.companyName.message}
-                </small>
-            )}
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext<RegisterForm>();
 
-            <label htmlFor="business-type">Business Type</label>
-            <Controller
-            name="businessType"
-            control={control}
-            rules={{ required: "Business Type is required" }}
-            render={({ field }) => (
-                <Dropdown
-                id="business-type"
-                value={field.value}
-                options={businessTypes}
-                placeholder="Select a Business Type"
-                onChange={(e) => field.onChange(e.value)}
-                onBlur={field.onBlur}
-                invalid={!!errors.businessType}
-                />
-            )}
-            />
-            {errors.businessType && (
-                <small id="business-type-help" style={{color:'red'}}>
-                    {errors.businessType.message}
-                </small>
-            )}
+  return (
+    <div className="flex flex-col gap-4 justify-center">
+      <label htmlFor="company-name">Company Name</label>
+      <InputText
+        id="company-name"
+        {...register("companyName", { required: "Company Name is required" })}
+        invalid={!!errors.companyName}
+        aria-describedby="company-name-help"
+      />
+      {errors.companyName && (
+        <small id="company-name-help" style={{ color: "red" }}>
+          {errors.companyName.message}
+        </small>
+      )}
 
-            <label htmlFor="subdomain">Subdomain</label>
-            <InputText id="subdomain" 
-            {...register("subdomain", { required: "Subdomain is required" })} 
-            invalid={!!errors.subdomain} 
-            aria-describedby="subdomain-help" />
-            {errors.subdomain && (
-                <small id="subdomain-help" style={{color:'red'}} >
-                    {errors.subdomain.message}
-                </small>
-            )}
-        </div>
-    );
+      <label htmlFor="business-type">Business Type</label>
+      <Controller
+        name="businessType"
+        control={control}
+        rules={{ required: "Business Type is required" }}
+        render={({ field }) => (
+          <Dropdown
+            id="business-type"
+            value={field.value}
+            options={businessTypes}
+            placeholder="Select a Business Type"
+            onChange={(e) => field.onChange(e.value)}
+            onBlur={field.onBlur}
+            invalid={!!errors.businessType}
+          />
+        )}
+      />
+      {errors.businessType && (
+        <small id="business-type-help" style={{ color: "red" }}>
+          {errors.businessType.message}
+        </small>
+      )}
+
+      <label htmlFor="subdomain">Subdomain</label>
+      <InputText
+        id="subdomain"
+        {...register("subdomain", { required: "Subdomain is required" })}
+        invalid={!!errors.subdomain}
+        aria-describedby="subdomain-help"
+      />
+      {errors.subdomain && (
+        <small id="subdomain-help" style={{ color: "red" }}>
+          {errors.subdomain.message}
+        </small>
+      )}
+    </div>
+  );
 }

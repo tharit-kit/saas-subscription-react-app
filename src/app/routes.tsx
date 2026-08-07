@@ -6,24 +6,28 @@ import EmailVerificationPage from "../features/auth/pages/EmailVerificationPage/
 import LoginPage from "../features/auth/pages/LoginPage/LoginPage";
 import TenantLayout from "./layouts/TenantLayout/TenantLayout";
 import Dashboard from "../features/tenant/pages/dashboard/Dashboard";
+import AcceptMemberInvitationPage from "../features/auth/pages/AcceptMemberInvitationPage/AcceptMemberInvitationPage";
+import { verifyMemberInvitationLoader } from "../features/auth/loaders/verifyMemberInvitationLoader";
 
 export const router = createBrowserRouter([
-    {
-        element: <HomeLayout></HomeLayout>,
-        children: [
-            {path: "/home", element: <HomePage/>},
-            {path: "/registration", element: <RegistrationPage/>},
-            {path: "/verify-email", element: <EmailVerificationPage/>},
-            {path: "/login", element: <LoginPage/>},
-            {path: "/", element: <Navigate to="/home" replace />}
-        ]
-    },
-    {
-        element: <TenantLayout></TenantLayout>,
-        children: [
-            {path: "/t/:tenant/dashboard", element: <Dashboard/>}
-        ]
-        
-    },
-    {path: "*", element: <Navigate to="/home" replace />}
+  {
+    element: <HomeLayout></HomeLayout>,
+    children: [
+      { path: "/home", element: <HomePage /> },
+      { path: "/registration", element: <RegistrationPage /> },
+      { path: "/verify-email", element: <EmailVerificationPage /> },
+      {
+        path: "/accept-member",
+        element: <AcceptMemberInvitationPage />,
+        loader: verifyMemberInvitationLoader,
+      },
+      { path: "/login", element: <LoginPage /> },
+      { path: "/", element: <Navigate to="/home" replace /> },
+    ],
+  },
+  {
+    element: <TenantLayout></TenantLayout>,
+    children: [{ path: "/t/:tenant/dashboard", element: <Dashboard /> }],
+  },
+  { path: "*", element: <Navigate to="/home" replace /> },
 ]);

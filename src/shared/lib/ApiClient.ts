@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { getCurrentTenantSlug } from '../helpers/tenant';
+import axios from "axios";
+import { getCurrentTenantSlug } from "../helpers/tenant";
 
 // Create an instance of axios with some default configuration
 const apiClient = axios.create({
-  baseURL: '/api',
+  baseURL: "/api",
 });
 
 apiClient.interceptors.request.use((config) => {

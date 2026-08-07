@@ -1,13 +1,13 @@
-import '../App.css'
-import { RouterProvider } from 'react-router';
-import { router } from './routes';
+import "../App.css";
+import { RouterProvider } from "react-router";
+import { router } from "./routes";
 
 function App() {
   return (
     <div className="min-h-screen flex flex-col">
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </div>
   );
 }
 
-export default App
+export default App;
