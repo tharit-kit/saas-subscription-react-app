@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import type { verifyMemberInvitationLoader } from "../../loaders/verifyMemberInvitationLoader";
 import { InputText } from "primereact/inputtext";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { allRulesPassed, passwordRules } from "../../components/PasswordChecklist/PasswordRules";
 import { Password } from "primereact/password";
 import type { MemberAcceptanceForm } from "../../interfaces/MemberAcceptanceFormInterface";
@@ -10,19 +10,52 @@ import { PasswordChecklist } from "../../components/PasswordChecklist/PasswordCh
 import { Button } from "primereact/button";
 
 export default function AcceptMemberInvitationPage() {
-  const data = useLoaderData<typeof verifyMemberInvitationLoader>();
+  const loaderRes = useLoaderData<typeof verifyMemberInvitationLoader>();
   const {
     register,
+    handleSubmit,
     control,
-    watch,
     formState: { errors, dirtyFields },
-  } = useFormContext<MemberAcceptanceForm>();
+  } = useForm<MemberAcceptanceForm>({
+    mode: "onTouched",
+    defaultValues: {
+      fullName: "",
+      password: "",
+      confirmedPassword: "",
+    },
+  });
 
-  const password = watch("password");
+  const password = useWatch({
+    control,
+    name: "password",
+  });
   const passed = useMemo(() => allRulesPassed(password, passwordRules), [password]);
   const showChecklist = !!dirtyFields.password && !passed;
 
-  if (!data.isSuccess) {
+  const onSubmit = (data: MemberAcceptanceForm) => {
+    console.log(data);
+
+    if (loaderRes.data.isNewUser) {
+      // Existing user request
+      const request = {
+        fullName: data.fullName,
+      };
+
+      console.log(request);
+      return;
+    }
+
+    // New user request
+    const request = {
+      fullName: data.fullName,
+      password: data.password,
+      confirmedPassword: data.confirmedPassword,
+    };
+
+    console.log(request);
+  };
+
+  if (!loaderRes.isSuccess) {
     return (
       <div className="invitation-error-page">
         <div className="invitation-error-card">
@@ -58,7 +91,7 @@ export default function AcceptMemberInvitationPage() {
 
         <div className="invited-email">
           <span>Email</span>
-          <strong>{email}</strong>
+          <strong>{loaderRes.data.email}</strong>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -76,7 +109,7 @@ export default function AcceptMemberInvitationPage() {
             {errors.fullName && <small className="p-error">{errors.fullName.message}</small>}
           </div>
 
-          {data.data.isNewUser && (
+          {loaderRes.data.isNewUser && (
             <>
               <div className="form-field">
                 <label htmlFor="password">Password</label>

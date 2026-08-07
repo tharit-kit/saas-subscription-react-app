@@ -58,4 +58,5 @@ export interface VerifyMemberInvitationRequest {
 
 export interface VerifyMemberInvitationResponse {
   isNewUser: boolean;
+  email: string;
 }
