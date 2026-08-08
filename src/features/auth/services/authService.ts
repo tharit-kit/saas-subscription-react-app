@@ -1,6 +1,8 @@
 import type { ApiResponse } from "../../../shared/interfaces/ApiResponse";
 import apiClient from "../../../shared/lib/ApiClient";
 import type {
+  AcceptMemberInvitationRequest,
+  AcceptMemberInvitationResponse,
   EmailVerificationResponse,
   LoginRequest,
   LoginResponse,
@@ -47,6 +49,15 @@ export const loginService = async (request: LoginRequest) => {
 export const verifyMemberInvitationService = async (request: VerifyMemberInvitationRequest) => {
   const res = await apiClient.post<ApiResponse<VerifyMemberInvitationResponse>>(
     "/tenant/verify-member-invitation",
+    request
+  );
+
+  return res.data;
+};
+
+export const acceptMemberInvitationService = async (request: AcceptMemberInvitationRequest) => {
+  const res = await apiClient.post<ApiResponse<AcceptMemberInvitationResponse>>(
+    "/tenant/accept-member-invitation",
     request
   );
 

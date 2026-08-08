@@ -11,5 +11,5 @@ export async function verifyMemberInvitationLoader({ request }: LoaderFunctionAr
 
   const response = await verifyMemberInvitationService({ token });
 
-  return response;
+  return { response: response, token: token };
 }

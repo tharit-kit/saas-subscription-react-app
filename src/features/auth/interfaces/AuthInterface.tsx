@@ -60,3 +60,16 @@ export interface VerifyMemberInvitationResponse {
   isNewUser: boolean;
   email: string;
 }
+
+export interface AcceptMemberInvitationRequest {
+  token: string;
+  isNewUser: boolean;
+  FullName: string;
+  Password: string;
+  ComfirmPassword: string;
+}
+
+export interface AcceptMemberInvitationResponse {
+  FullName: string;
+  TenantName: string;
+}
