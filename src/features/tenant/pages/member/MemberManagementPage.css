@@ -1,0 +1,115 @@
+.member-page {
+  padding: 40px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.member-card {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.member-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.member-header h1 {
+  margin: 0 0 6px;
+  font-size: 26px;
+}
+
+.member-header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.member-table-wrapper {
+  overflow-x: auto;
+}
+
+.member-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.member-table th,
+.member-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.member-table th {
+  background-color: #f9fafb;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.member-table td {
+  font-size: 14px;
+  color: #374151;
+}
+
+.status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-active {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.status-pending {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+/* Invite dialog */
+
+.invite-member-dialog {
+  width: 480px;
+  max-width: calc(100vw - 32px);
+}
+
+.invite-description {
+  margin: 0 0 24px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.invite-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.invite-form-field label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.invite-form-field .p-inputtext {
+  width: 100%;
+}
+
+.invite-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 28px;
+}
