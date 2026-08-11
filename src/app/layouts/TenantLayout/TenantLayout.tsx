@@ -6,7 +6,7 @@ import { Dropdown, type DropdownChangeEvent } from "primereact/dropdown";
 import { Menu } from "primereact/menu";
 import type { MembershipInfo } from "../../../features/auth/interfaces/AuthInterface";
 import { useState } from "react";
-import { getCurrentTenantSlug } from "../../../shared/helpers/tenant";
+import { getCurrentTenantSlug } from "../../../shared/helpers/Tenant";
 
 function MenuEnd() {
   const navigate = useNavigate();
@@ -54,9 +54,9 @@ export default function TenantLayout() {
       command: () => navigate(`t/${tenantSlug}/dashboard`),
     },
     {
-      label: "User Management",
+      label: "Member Management",
       icon: "pi pi-users",
-      command: () => navigate(`t/${tenantSlug}/members`),
+      command: () => navigate(`t/${tenantSlug}/member-management`),
     },
     {
       label: "Settings",

@@ -3,7 +3,7 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
 
-export default function MemberList() {
+export default function MemberManagementPage() {
   const [inviteDialogVisible, setInviteDialogVisible] = useState(false);
   const [email, setEmail] = useState("");
 

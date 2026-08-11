@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCurrentTenantSlug } from "../helpers/tenant";
+import { getCurrentTenantSlug } from "../helpers/Tenant";
 
 // Create an instance of axios with some default configuration
 const apiClient = axios.create({

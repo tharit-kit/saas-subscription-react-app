@@ -8,6 +8,8 @@ import TenantLayout from "./layouts/TenantLayout/TenantLayout";
 import Dashboard from "../features/tenant/pages/dashboard/Dashboard";
 import AcceptMemberInvitationPage from "../features/auth/pages/AcceptMemberInvitationPage/AcceptMemberInvitationPage";
 import { verifyMemberInvitationLoader } from "../features/auth/loaders/verifyMemberInvitationLoader";
+import MemberManagementPage from "../features/tenant/pages/member/MemberManagementPage";
+import { getMemberListLoader } from "../features/tenant/loaders/getMemberListLoader";
 
 export const router = createBrowserRouter([
   {
@@ -27,7 +29,14 @@ export const router = createBrowserRouter([
   },
   {
     element: <TenantLayout></TenantLayout>,
-    children: [{ path: "/t/:tenant/dashboard", element: <Dashboard /> }],
+    children: [
+      { path: "/t/:tenant/dashboard", element: <Dashboard /> },
+      {
+        path: "/t/:tenant/member-management",
+        element: <MemberManagementPage />,
+        loader: getMemberListLoader,
+      },
+    ],
   },
   { path: "*", element: <Navigate to="/home" replace /> },
 ]);
