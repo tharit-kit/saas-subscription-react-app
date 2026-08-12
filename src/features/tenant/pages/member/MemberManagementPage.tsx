@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";
+import "./MemberManagementPage.css";
 
 export default function MemberManagementPage() {
   const [inviteDialogVisible, setInviteDialogVisible] = useState(false);

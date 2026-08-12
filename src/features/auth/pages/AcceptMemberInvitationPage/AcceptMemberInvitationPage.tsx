@@ -13,6 +13,7 @@ import type {
   AcceptMemberInvitationResponse,
 } from "../../interfaces/AuthInterface";
 import { useAcceptMemberInvitation } from "../../hooks/useAcceptMemberInvitation";
+import "./AcceptMemberInvitationPage.css";
 
 export default function AcceptMemberInvitationPage() {
   const loaderRes = useLoaderData<typeof verifyMemberInvitationLoader>();
